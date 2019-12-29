@@ -20,7 +20,7 @@ public class App {
 
   private JFrame frame;
 
-  public static JPanel mainPanelCenter;
+  private static JPanel mainPanelCenter;
 
   public App() {
     initialize();

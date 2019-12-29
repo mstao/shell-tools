@@ -3,7 +3,6 @@ package me.mingshan.tool.shell.util.propertys;
 import me.mingshan.tool.shell.util.PropertyUtil;
 import me.mingshan.tool.shell.util.StringUtil;
 import me.mingshan.tool.shell.util.cache.Cache;
-import me.mingshan.tool.shell.util.cache.CachePrefix;
 import me.mingshan.tool.shell.util.cache.caffeine.CaffeineCache;
 
 import java.util.Properties;
@@ -14,10 +13,8 @@ import java.util.Properties;
  * @author mingshan
  */
 public class FileProperties implements CustomProperties {
-    /**
-     * The name of property file.
-     */
-    public static final String PROPERTY_FILE_NAME = "app.properties";
+
+    private static final String PROPERTY_FILE_NAME = "app.properties";
 
     /**
      * No Public
@@ -44,7 +41,7 @@ public class FileProperties implements CustomProperties {
     @Override
     public Property<String> getString(String name, String fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get(CachePrefix.STRING.getValue() + name);
+        Object cachedValue = caffeineCache.get(name);
         String value = null;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(PROPERTY_FILE_NAME);
@@ -53,7 +50,7 @@ public class FileProperties implements CustomProperties {
                 String tempValue = String.valueOf(resource);
                 if (!StringUtil.isEmpty(tempValue)) {
                     value = tempValue;
-                    caffeineCache.put(CachePrefix.STRING.getValue() + name, value);
+                    caffeineCache.put(name, value);
                 }
             }
         } else {
@@ -78,12 +75,12 @@ public class FileProperties implements CustomProperties {
     @Override
     public Property<Integer> getInteger(String name, Integer fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get(CachePrefix.INTEGER.getValue() + name);
+        Object cachedValue = caffeineCache.get(name);
         Integer value;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(PROPERTY_FILE_NAME);
             value = Integer.valueOf(properties.get(name).toString());
-            caffeineCache.put(CachePrefix.INTEGER.getValue() + name, value);
+            caffeineCache.put(name, value);
         } else {
             value = Integer.valueOf(cachedValue.toString());
         }
@@ -105,12 +102,12 @@ public class FileProperties implements CustomProperties {
     @Override
     public Property<Boolean> getBoolean(String name, Boolean fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get(CachePrefix.BOOLEAN.getValue() + name);
+        Object cachedValue = caffeineCache.get(name);
         Boolean value;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(PROPERTY_FILE_NAME);
             value = Boolean.valueOf(properties.get(name).toString());
-            caffeineCache.put(CachePrefix.BOOLEAN.getValue() + name, value);
+            caffeineCache.put(name, value);
         } else {
             value = Boolean.valueOf(cachedValue.toString());
         }
@@ -132,12 +129,12 @@ public class FileProperties implements CustomProperties {
     @Override
     public Property<Long> getLong(String name, Long fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get(CachePrefix.LONG.getValue() + name);
+        Object cachedValue = caffeineCache.get(name);
         Long value;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(PROPERTY_FILE_NAME);
             value = Long.valueOf(properties.get(name).toString());
-            caffeineCache.put(CachePrefix.LONG.getValue() + name, value);
+            caffeineCache.put(name, value);
         } else {
             value = Long.valueOf(cachedValue.toString());
         }
