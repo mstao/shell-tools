@@ -26,7 +26,8 @@ public class ConfigureSupport {
       case FILE:
         customProperties = FileProperties.getInstance();
         break;
-      default: throw new RuntimeException("Can not find the type of loading configuration.");
+      default:
+        throw new RuntimeException("Can not find the type of loading configuration.");
     }
 
     return customProperties;

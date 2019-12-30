@@ -1,6 +1,8 @@
 package me.mingshan.tool.shell.ui.panel;
 
+import me.mingshan.tool.shell.App;
 import me.mingshan.tool.shell.ui.UiConstants;
+import me.mingshan.tool.shell.ui.component.MyIconButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +13,7 @@ import java.awt.*;
  */
 public class ToolBarPanel extends JPanel {
 
-  private static JButton buttonSetting;
+  private static MyIconButton buttonSetting;
 
   /**
    * 构造
@@ -43,9 +45,10 @@ public class ToolBarPanel extends JPanel {
     panelUp.setLayout(new FlowLayout(-2, -2, -4));
     JPanel panelDown = new JPanel();
     panelDown.setBackground(UiConstants.TOOL_BAR_BACK_COLOR);
-    panelDown.setLayout(new BorderLayout(0, 0));
+    panelDown.setLayout(new BorderLayout(10, 10));
 
-    buttonSetting = new JButton("Setting");
+    buttonSetting = new MyIconButton(UiConstants.ICON_SETTING, UiConstants.ICON_SETTING_ENABLE,
+        UiConstants.ICON_SETTING, "Setting");
 
     panelDown.add(buttonSetting, BorderLayout.SOUTH);
     this.add(panelUp);

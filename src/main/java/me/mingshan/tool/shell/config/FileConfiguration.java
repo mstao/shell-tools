@@ -7,7 +7,9 @@ package me.mingshan.tool.shell.config;
  */
 public class FileConfiguration {
 
-  /** App相关 */
+  /**
+   * App相关
+   */
   public static String APP_NAME = "app.name";
   public static String APP_VERSION = "app.version";
 }

@@ -4,6 +4,7 @@ import me.mingshan.tool.shell.config.ConfigureSupport;
 import me.mingshan.tool.shell.config.ConfigureType;
 import me.mingshan.tool.shell.config.FileConfiguration;
 import me.mingshan.tool.shell.ui.UiConstants;
+import me.mingshan.tool.shell.ui.panel.SettingPanel;
 import me.mingshan.tool.shell.ui.panel.ToolBarPanel;
 import me.mingshan.tool.shell.util.ClassUtil;
 import me.mingshan.tool.shell.util.propertys.CustomProperties;
@@ -22,13 +23,13 @@ public class App {
 
   private static JPanel mainPanelCenter;
 
+  public JPanel settingPanel;
+
   public App() {
     initialize();
   }
 
   public static void main(String[] args) {
-    initProperties(args);
-
     EventQueue.invokeLater(() -> {
       try {
         App window = new App();
@@ -37,6 +38,8 @@ public class App {
         logger.error(ClassUtil.getFullStackTrace(e));
       }
     });
+
+    new Thread(App::initConfiguration).start();
   }
 
   /**
@@ -73,7 +76,9 @@ public class App {
 
     mainPanelCenter = new JPanel(true);
     mainPanelCenter.setLayout(new BorderLayout());
-    mainPanelCenter.add(new TextArea("Hello World"), BorderLayout.CENTER);
+
+    settingPanel = new SettingPanel();
+    mainPanelCenter.add(settingPanel, BorderLayout.CENTER);
 
     mainPanel.add(mainPanelCenter, BorderLayout.CENTER);
 
@@ -120,18 +125,8 @@ public class App {
     logger.info("AppInitEnd <<<<<<");
   }
 
-  /**
-   * 初始化外界配置
-   *
-   * @param args 参数
-   */
-  private static void initProperties(String[] args) {
-    logger.info("Initial properties >>>>> ");
-
-    if (args != null && args.length > 0) {
-
-    }
+  private static void initConfiguration() {
+    logger.info("Init end");
   }
-
 
 }

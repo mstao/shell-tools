@@ -91,15 +91,15 @@ public class UiConstants {
      */
     public final static Dimension PANEL_ITEM_SIZE = new Dimension(1300, 40);
 
-//    /**
-//     * 设置 默认
-//     */
-//    public final static ImageIcon ICON_SETTING = new ImageIcon(
-//        App.class.getResource("/icon/setting.png"));
-//    /**
-//     * 设置 激活
-//     */
-//    public final static ImageIcon ICON_SETTING_ENABLE = new ImageIcon(
-//        App.class.getResource("/icon/settingEnable.png"));
+    /**
+     * 设置 默认
+     */
+    public final static ImageIcon ICON_SETTING = new ImageIcon(
+        App.class.getResource("/icon/setting.png"));
+    /**
+     * 设置 激活
+     */
+    public final static ImageIcon ICON_SETTING_ENABLE = new ImageIcon(
+        App.class.getResource("/icon/settingEnable.png"));
 
 }

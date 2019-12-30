@@ -16,7 +16,7 @@ public class FileUtil {
     clearInfoForFile(filePath);
 
     BufferedWriter writer = new BufferedWriter(
-        new OutputStreamWriter(new FileOutputStream(filePath,true)));
+        new OutputStreamWriter(new FileOutputStream(filePath, true)));
     try {
       IOUtils.write(json, writer);
     } finally {
@@ -25,10 +25,10 @@ public class FileUtil {
   }
 
   private static void clearInfoForFile(String filePath) {
-    File file =new File(filePath);
+    File file = new File(filePath);
     try {
-      if(file.exists()) {
-        try (FileWriter fileWriter =new FileWriter(file)) {
+      if (file.exists()) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
           fileWriter.write("");
           fileWriter.flush();
         }

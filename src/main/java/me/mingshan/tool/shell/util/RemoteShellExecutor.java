@@ -13,11 +13,17 @@ import java.nio.charset.Charset;
 public class RemoteShellExecutor {
 
   private Connection conn;
-  /** 远程机器IP */
+  /**
+   * 远程机器IP
+   */
   private String ip;
-  /** 用户名 */
+  /**
+   * 用户名
+   */
   private String osUsername;
-  /** 密码 */
+  /**
+   * 密码
+   */
   private String password;
   private String charset = Charset.defaultCharset().toString();
 
@@ -32,6 +38,7 @@ public class RemoteShellExecutor {
 
   /**
    * 登录
+   *
    * @return
    * @throws IOException
    */
