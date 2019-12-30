@@ -52,7 +52,7 @@ public class ToolBarPanel extends JPanel {
 
     buttonUpload = new MyIconButton(UiConstants.ICON_UPLOAD, UiConstants.ICON_UPLOAD_ENABLE,
         UiConstants.ICON_UPLOAD, "Upload");
-    buttonDownload = new MyIconButton(UiConstants.ICON_DOWNLOAD, UiConstants.ICON_DOWNLOAD_ENABLE,
+    buttonDownload = new MyIconButton(UiConstants.ICON_DOWNLOAD_ENABLE, UiConstants.ICON_DOWNLOAD_ENABLE,
         UiConstants.ICON_DOWNLOAD, "Download");
     buttonExecute = new MyIconButton(UiConstants.ICON_EXECUTE, UiConstants.ICON_EXECUTE_ENABLE,
         UiConstants.ICON_EXECUTE, "Execute");
@@ -72,6 +72,38 @@ public class ToolBarPanel extends JPanel {
    * 为各按钮添加事件动作监听
    */
   private void addListener() {
+    buttonDownload.addActionListener(e -> {
+      App.changeSidePanelVisible(App.downloadPanel.order());
+      buttonDownload.setIcon(UiConstants.ICON_DOWNLOAD_ENABLE);
+      buttonUpload.setIcon(UiConstants.ICON_UPLOAD);
+      buttonExecute.setIcon(UiConstants.ICON_EXECUTE);
+      buttonSetting.setIcon(UiConstants.ICON_SETTING);
+    });
 
+    buttonUpload.addActionListener(e -> {
+      App.changeSidePanelVisible(App.uploadPanel.order());
+      buttonDownload.setIcon(UiConstants.ICON_DOWNLOAD);
+      buttonUpload.setIcon(UiConstants.ICON_UPLOAD_ENABLE);
+      buttonExecute.setIcon(UiConstants.ICON_EXECUTE);
+      buttonSetting.setIcon(UiConstants.ICON_SETTING);
+    });
+
+    buttonExecute.addActionListener(e -> {
+      App.changeSidePanelVisible(App.executePanel.order());
+      buttonDownload.setIcon(UiConstants.ICON_DOWNLOAD);
+      buttonUpload.setIcon(UiConstants.ICON_UPLOAD);
+      buttonExecute.setIcon(UiConstants.ICON_EXECUTE_ENABLE);
+      buttonSetting.setIcon(UiConstants.ICON_SETTING);
+    });
+
+    buttonSetting.addActionListener(e -> {
+      App.changeSidePanelVisible(App.settingPanel.order());
+      buttonDownload.setIcon(UiConstants.ICON_DOWNLOAD);
+      buttonUpload.setIcon(UiConstants.ICON_UPLOAD);
+      buttonExecute.setIcon(UiConstants.ICON_EXECUTE);
+      buttonSetting.setIcon(UiConstants.ICON_SETTING_ENABLE);
+    });
   }
+
+
 }

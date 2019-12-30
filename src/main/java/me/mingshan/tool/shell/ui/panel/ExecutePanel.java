@@ -2,9 +2,8 @@ package me.mingshan.tool.shell.ui.panel;
 
 import java.awt.*;
 
-public class SettingPanel extends SidePanel {
-
-  public SettingPanel() {
+public class ExecutePanel extends SidePanel {
+  public ExecutePanel() {
     initialize();
     addComponent();
     addListener();
@@ -16,7 +15,7 @@ public class SettingPanel extends SidePanel {
   }
 
   private void addComponent() {
-    this.add(new TextField("Hello World"), BorderLayout.CENTER);
+    this.add(new TextField("ExecutePanel..............................."), BorderLayout.CENTER);
   }
 
   private void addListener() {
@@ -24,6 +23,6 @@ public class SettingPanel extends SidePanel {
 
   @Override
   public SideOrder order() {
-    return SideOrder.FOURTH;
+    return SideOrder.THIRD;
   }
 }

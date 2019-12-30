@@ -6,8 +6,7 @@ import me.mingshan.tool.shell.config.FileConfiguration;
 import me.mingshan.tool.shell.log.LogMonitor;
 import me.mingshan.tool.shell.log.LogMonitorDialog;
 import me.mingshan.tool.shell.ui.UiConstants;
-import me.mingshan.tool.shell.ui.panel.SettingPanel;
-import me.mingshan.tool.shell.ui.panel.ToolBarPanel;
+import me.mingshan.tool.shell.ui.panel.*;
 import me.mingshan.tool.shell.util.ClassUtil;
 import me.mingshan.tool.shell.util.propertys.CustomProperties;
 import org.slf4j.Logger;
@@ -17,13 +16,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
   private static final Logger logger = LoggerFactory.getLogger(App.class);
 
   private JFrame frame;
+  private static List<SidePanel> sidePanels = new ArrayList<>();
 
-  public JPanel settingPanel;
+  public static SidePanel downloadPanel;
+  public static SidePanel uploadPanel;
+  public static SidePanel executePanel;
+  public static SidePanel settingPanel;
 
   public App() {
     initialize();
@@ -82,8 +87,20 @@ public class App {
     JPanel mainPanelCenter = new JPanel(true);
     mainPanelCenter.setLayout(new BorderLayout());
 
+    downloadPanel = new DownloadPanel();
+    uploadPanel = new UploadPanel();
+    executePanel = new ExecutePanel();
     settingPanel = new SettingPanel();
+    sidePanels.add(downloadPanel);
+    sidePanels.add(uploadPanel);
+    sidePanels.add(executePanel);
+    sidePanels.add(settingPanel);
+
+    mainPanelCenter.add(downloadPanel, BorderLayout.CENTER);
+    mainPanelCenter.add(uploadPanel, BorderLayout.CENTER);
+    mainPanelCenter.add(executePanel, BorderLayout.CENTER);
     mainPanelCenter.add(settingPanel, BorderLayout.CENTER);
+    changeSidePanelVisible(downloadPanel.order());
 
     mainPanel.add(mainPanelCenter, BorderLayout.CENTER);
 
@@ -135,4 +152,13 @@ public class App {
     logger.info("Init end");
   }
 
+  public static void changeSidePanelVisible(SideOrder orderVisible) {
+    for (SidePanel sidePanel : sidePanels) {
+      if (sidePanel.order().getValue() == orderVisible.getValue()) {
+        sidePanel.setVisible(true);
+      } else {
+        sidePanel.setVisible(false);
+      }
+    }
+  }
 }
