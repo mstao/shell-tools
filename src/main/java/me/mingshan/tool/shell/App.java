@@ -21,8 +21,6 @@ public class App {
 
   private JFrame frame;
 
-  private static JPanel mainPanelCenter;
-
   public JPanel settingPanel;
 
   public App() {
@@ -74,7 +72,7 @@ public class App {
     ToolBarPanel toolbar = new ToolBarPanel();
     mainPanel.add(toolbar, BorderLayout.WEST);
 
-    mainPanelCenter = new JPanel(true);
+    JPanel mainPanelCenter = new JPanel(true);
     mainPanelCenter.setLayout(new BorderLayout());
 
     settingPanel = new SettingPanel();

@@ -1,13 +1,9 @@
 package me.mingshan.tool.shell.util;
 
-import ch.ethz.ssh2.ChannelCondition;
-import ch.ethz.ssh2.Connection;
-import ch.ethz.ssh2.Session;
-import ch.ethz.ssh2.StreamGobbler;
+import ch.ethz.ssh2.*;
 import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 
 public class RemoteShellExecutor {
@@ -34,7 +30,6 @@ public class RemoteShellExecutor {
     this.osUsername = usr;
     this.password = pasword;
   }
-
 
   /**
    * 登录
@@ -101,9 +96,70 @@ public class RemoteShellExecutor {
     return sb.toString();
   }
 
+  /**
+   * 将远程主机的文件下载到指定本机目录
+   *
+   * @param remoteFile
+   * @param localTargetDirectory
+   * @throws Exception
+   */
+  public void getFile(String remoteFile, String localTargetDirectory) throws IOException {
+      if (login()) {
+        SCPClient client = new SCPClient(conn);
+
+        try (SCPInputStream fis = client.get(remoteFile);
+             FileOutputStream fos = new FileOutputStream(localTargetDirectory)) {
+          // 构造一个长度为1024的字节数组
+          byte[] buffer = new byte[1024];
+          //读取
+          while (fis.read(buffer) != -1) {
+            //写入另一个文件
+            fos.write(buffer);
+          }
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else {
+        // ("登录远程机器失败" + ip);
+        // 自定义异常类 实现略
+        System.err.println("登录失败，请确认远程ip，用户名和密码");
+      }
+  }
+
+  /**
+   * 将本地文件上传到远程主机指定目录
+   *
+   * @param localFile
+   * @param remoteTargetDirectory
+   * @param mode
+   */
+  public void uploadFile(String localFile, String remoteTargetDirectory, String mode) throws IOException {
+      if (login()) {
+        File file = new File(localFile);
+        SCPClient client = new SCPClient(conn);
+        byte[] b = new byte[4096];
+        try (FileInputStream fis = new FileInputStream(file);
+             SCPOutputStream os = client.put(file.getName(), file.length(), remoteTargetDirectory, mode)) {
+          int i;
+          while ((i = fis.read(b)) != -1) {
+            os.write(b, 0, i);
+          }
+          os.flush();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else {
+        // ("登录远程机器失败" + ip);
+        // 自定义异常类 实现略
+        System.err.println("登录失败，请确认远程ip，用户名和密码");
+      }
+  }
+
   public static void main(String args[]) throws Exception {
-    RemoteShellExecutor executor = new RemoteShellExecutor("172.17.10.231", "iwms", "iwms");
+    RemoteShellExecutor executor = new RemoteShellExecutor("172.17.10.231", "root", "iwms");
     // 执行myTest.sh 参数为java Know dummy
-    System.out.println(executor.exec("ls"));
+    //System.out.println(executor.exec("ls"));
+
+    executor.getFile("/usr/apps/ArmsAgent.zip", "./test.zip");
   }
 }
