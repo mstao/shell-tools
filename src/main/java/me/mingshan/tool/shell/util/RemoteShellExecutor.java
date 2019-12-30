@@ -2,11 +2,14 @@ package me.mingshan.tool.shell.util;
 
 import ch.ethz.ssh2.*;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.Charset;
 
 public class RemoteShellExecutor {
+  private static final Logger logger = LoggerFactory.getLogger(RemoteShellExecutor.class);
 
   private Connection conn;
   /**
@@ -68,14 +71,13 @@ public class RemoteShellExecutor {
         stdErr = new StreamGobbler(session.getStderr());
         outErr = processStream(stdErr, charset);
 
+        logger.info(outStr);
+        logger.error(outErr);
         session.waitForCondition(ChannelCondition.EXIT_STATUS, TIME_OUT);
-
-        System.out.println("outStr=" + outStr);
-        System.out.println("outErr=" + outErr);
 
         ret = session.getExitStatus();
       } else {
-        throw new Exception("登录远程机器失败" + ip); // 自定义异常类 实现略
+        loginErrorReport();
       }
     } finally {
       if (conn != null) {
@@ -122,7 +124,7 @@ public class RemoteShellExecutor {
       } else {
         // ("登录远程机器失败" + ip);
         // 自定义异常类 实现略
-        System.err.println("登录失败，请确认远程ip，用户名和密码");
+        loginErrorReport();
       }
   }
 
@@ -151,15 +153,20 @@ public class RemoteShellExecutor {
       } else {
         // ("登录远程机器失败" + ip);
         // 自定义异常类 实现略
-        System.err.println("登录失败，请确认远程ip，用户名和密码");
+        loginErrorReport();
       }
   }
 
-  public static void main(String args[]) throws Exception {
-    RemoteShellExecutor executor = new RemoteShellExecutor("172.17.10.231", "root", "iwms");
-    // 执行myTest.sh 参数为java Know dummy
-    //System.out.println(executor.exec("ls"));
+  private static void loginErrorReport() {
+    logger.error("登录失败，请确认远程ip，用户名和密码");
+    throw new RuntimeException("登录失败，请确认远程ip，用户名和密码");
+  }
 
-    executor.getFile("/usr/apps/ArmsAgent.zip", "./test.zip");
+  public static void main(String args[]) throws Exception {
+    RemoteShellExecutor executor = new RemoteShellExecutor("172.17.10.231", "iwms", "iwms");
+    // 执行myTest.sh 参数为java Know dummy
+    System.out.println(executor.exec("ls"));
+
+    //executor.getFile("/usr/apps/ArmsAgent.zip", "./test.zip");
   }
 }

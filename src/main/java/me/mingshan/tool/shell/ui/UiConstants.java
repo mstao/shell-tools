@@ -95,11 +95,44 @@ public class UiConstants {
      * 设置 默认
      */
     public final static ImageIcon ICON_SETTING = new ImageIcon(
-        App.class.getResource("/icon/setting.png"));
+            App.class.getResource("/icon/setting.png"));
     /**
      * 设置 激活
      */
     public final static ImageIcon ICON_SETTING_ENABLE = new ImageIcon(
         App.class.getResource("/icon/settingEnable.png"));
+
+    /**
+     * 下载 默认
+     */
+    public final static ImageIcon ICON_DOWNLOAD = new ImageIcon(
+        App.class.getResource("/icon/download.png"));
+    /**
+     * 下载 激活
+     */
+    public final static ImageIcon ICON_DOWNLOAD_ENABLE = new ImageIcon(
+        App.class.getResource("/icon/downloadEnable.png"));
+
+    /**
+     * 上传 默认
+     */
+    public final static ImageIcon ICON_UPLOAD = new ImageIcon(
+        App.class.getResource("/icon/upload.png"));
+    /**
+     * 上传 激活
+     */
+    public final static ImageIcon ICON_UPLOAD_ENABLE = new ImageIcon(
+        App.class.getResource("/icon/uploadEnable.png"));
+
+    /**
+     * 执行 默认
+     */
+    public final static ImageIcon ICON_EXECUTE = new ImageIcon(
+        App.class.getResource("/icon/execute.png"));
+    /**
+     * 执行 激活
+     */
+    public final static ImageIcon ICON_EXECUTE_ENABLE = new ImageIcon(
+        App.class.getResource("/icon/executeEnable.png"));
 
 }

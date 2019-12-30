@@ -14,6 +14,9 @@ import java.awt.*;
 public class ToolBarPanel extends JPanel {
 
   private static MyIconButton buttonSetting;
+  private static MyIconButton buttonDownload;
+  private static MyIconButton buttonUpload;
+  private static MyIconButton buttonExecute;
 
   /**
    * 构造
@@ -42,10 +45,20 @@ public class ToolBarPanel extends JPanel {
   private void addButtion() {
     JPanel panelUp = new JPanel();
     panelUp.setBackground(UiConstants.TOOL_BAR_BACK_COLOR);
-    panelUp.setLayout(new FlowLayout(-2, -2, -4));
+    panelUp.setLayout(new FlowLayout(-2, 6, 14));
     JPanel panelDown = new JPanel();
     panelDown.setBackground(UiConstants.TOOL_BAR_BACK_COLOR);
     panelDown.setLayout(new BorderLayout(10, 10));
+
+    buttonUpload = new MyIconButton(UiConstants.ICON_UPLOAD, UiConstants.ICON_UPLOAD_ENABLE,
+        UiConstants.ICON_UPLOAD, "Upload");
+    buttonDownload = new MyIconButton(UiConstants.ICON_DOWNLOAD, UiConstants.ICON_DOWNLOAD_ENABLE,
+        UiConstants.ICON_DOWNLOAD, "Download");
+    buttonExecute = new MyIconButton(UiConstants.ICON_EXECUTE, UiConstants.ICON_EXECUTE_ENABLE,
+        UiConstants.ICON_EXECUTE, "Execute");
+    panelUp.add(buttonDownload);
+    panelUp.add(buttonUpload);
+    panelUp.add(buttonExecute);
 
     buttonSetting = new MyIconButton(UiConstants.ICON_SETTING, UiConstants.ICON_SETTING_ENABLE,
         UiConstants.ICON_SETTING, "Setting");

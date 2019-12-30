@@ -3,6 +3,8 @@ package me.mingshan.tool.shell;
 import me.mingshan.tool.shell.config.ConfigureSupport;
 import me.mingshan.tool.shell.config.ConfigureType;
 import me.mingshan.tool.shell.config.FileConfiguration;
+import me.mingshan.tool.shell.log.LogMonitor;
+import me.mingshan.tool.shell.log.LogMonitorDialog;
 import me.mingshan.tool.shell.ui.UiConstants;
 import me.mingshan.tool.shell.ui.panel.SettingPanel;
 import me.mingshan.tool.shell.ui.panel.ToolBarPanel;
@@ -44,6 +46,11 @@ public class App {
    * 初始化窗体
    */
   private void initialize() {
+    LogMonitorDialog monitorDialog = new LogMonitorDialog();
+    monitorDialog.setVisible(true);
+    monitorDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+    LogMonitor.addLog("AppInitStart >>>>>");
     logger.info("AppInitStart >>>>>");
 
     // 设置系统默认样式
@@ -121,6 +128,7 @@ public class App {
     frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
     logger.info("AppInitEnd <<<<<<");
+    LogMonitor.addLog("AppInitEnd <<<<<<");
   }
 
   private static void initConfiguration() {
