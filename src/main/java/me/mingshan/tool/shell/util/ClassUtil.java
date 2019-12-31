@@ -13,11 +13,11 @@
  */
 package me.mingshan.tool.shell.util;
 
+import me.mingshan.tool.shell.log.LogMonitor;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -88,27 +88,17 @@ public class ClassUtil {
    * @return throwable str
    */
   public static String getFullStackTrace(Throwable throwable) {
-    StringWriter sw = null;
-    PrintWriter pw = null;
-    try {
-      sw = new StringWriter();
-      pw = new PrintWriter(sw);
+    try (StringWriter sw = new StringWriter();
+         PrintWriter pw  = new PrintWriter(sw)) {
       throwable.printStackTrace(pw);
       pw.flush();
       sw.flush();
-    } finally {
-      if (sw != null) {
-        try {
-          sw.close();
-        } catch (IOException e1) {
-          e1.printStackTrace();
-        }
-      }
-      if (pw != null) {
-        pw.close();
-      }
+      return sw.toString();
+    } catch (IOException e) {
+      LogMonitor.addLog(e.getMessage());
     }
-    return sw.toString();
+
+    return null;
   }
 
 }

@@ -1,6 +1,7 @@
 package me.mingshan.tool.shell.util;
 
 import ch.ethz.ssh2.*;
+import me.mingshan.tool.shell.log.LogMonitor;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,7 +160,7 @@ public class RemoteShellExecutor {
 
   private static void loginErrorReport() {
     logger.error("登录失败，请确认远程ip，用户名和密码");
-    throw new RuntimeException("登录失败，请确认远程ip，用户名和密码");
+    LogMonitor.addLog("登录失败，请确认远程ip，用户名和密码");
   }
 
   public static void main(String args[]) throws Exception {
