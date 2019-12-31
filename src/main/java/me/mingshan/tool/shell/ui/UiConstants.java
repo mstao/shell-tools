@@ -141,8 +141,19 @@ public class UiConstants {
     public final static ImageIcon ICON_CLEAR = new ImageIcon(
         App.class.getResource("/icon/clear.png"));
     /**
-     * 执行 激活
+     * 清空 激活
      */
     public final static ImageIcon ICON_CLEAR_ENABLE = new ImageIcon(
         App.class.getResource("/icon/clearEnable.png"));
+
+    /**
+     * 隐藏 默认
+     */
+    public final static ImageIcon ICON_HIDE = new ImageIcon(
+        App.class.getResource("/icon/hide.png"));
+    /**
+     * 隐藏 激活
+     */
+    public final static ImageIcon ICON_HIDE_ENABLE = new ImageIcon(
+        App.class.getResource("/icon/hideEnable.png"));
 }

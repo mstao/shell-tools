@@ -19,6 +19,7 @@ public class ToolBarPanel extends JPanel {
   private static MyIconButton buttonUpload;
   private static MyIconButton buttonExecute;
   private static MyIconButton buttonClear;
+  private static MyIconButton buttonHide;
 
   /**
    * 构造
@@ -64,11 +65,15 @@ public class ToolBarPanel extends JPanel {
 
     JPanel panelDown = new JPanel();
     panelDown.setBackground(new Color(43, 43, 43));
-    panelDown.setLayout(new BorderLayout(10, 10));
+    //panelDown.setLayout(new BorderLayout(10, 10));
 
     buttonClear = new MyIconButton(UiConstants.ICON_CLEAR, UiConstants.ICON_CLEAR_ENABLE,
         UiConstants.ICON_CLEAR, "Clear");
-    panelDown.add(buttonClear, BorderLayout.SOUTH);
+    buttonHide = new MyIconButton(UiConstants.ICON_HIDE, UiConstants.ICON_HIDE_ENABLE,
+        UiConstants.ICON_HIDE, "Hide");
+
+    panelDown.add(buttonHide);
+    panelDown.add(buttonClear);
 
     this.add(panelUp);
     this.add(panelDown);
