@@ -1,6 +1,7 @@
 package me.mingshan.tool.shell.ui.panel;
 
 import me.mingshan.tool.shell.App;
+import me.mingshan.tool.shell.log.LogMonitor;
 import me.mingshan.tool.shell.ui.UiConstants;
 import me.mingshan.tool.shell.ui.component.MyIconButton;
 
@@ -17,6 +18,7 @@ public class ToolBarPanel extends JPanel {
   private static MyIconButton buttonDownload;
   private static MyIconButton buttonUpload;
   private static MyIconButton buttonExecute;
+  private static MyIconButton buttonClear;
 
   /**
    * 构造
@@ -35,7 +37,7 @@ public class ToolBarPanel extends JPanel {
     this.setPreferredSize(preferredSize);
     this.setMaximumSize(preferredSize);
     this.setMinimumSize(preferredSize);
-    this.setBackground(UiConstants.TOOL_BAR_BACK_COLOR);
+    this.setBackground(new Color(43, 43, 43));
     this.setLayout(new GridLayout(2, 1));
   }
 
@@ -44,11 +46,8 @@ public class ToolBarPanel extends JPanel {
    */
   private void addButtion() {
     JPanel panelUp = new JPanel();
-    panelUp.setBackground(UiConstants.TOOL_BAR_BACK_COLOR);
+    panelUp.setBackground(new Color(43, 43, 43));
     panelUp.setLayout(new FlowLayout(-2, 6, 14));
-    JPanel panelDown = new JPanel();
-    panelDown.setBackground(UiConstants.TOOL_BAR_BACK_COLOR);
-    panelDown.setLayout(new BorderLayout(10, 10));
 
     buttonUpload = new MyIconButton(UiConstants.ICON_UPLOAD, UiConstants.ICON_UPLOAD_ENABLE,
         UiConstants.ICON_UPLOAD, "Upload");
@@ -56,14 +55,21 @@ public class ToolBarPanel extends JPanel {
         UiConstants.ICON_DOWNLOAD, "Download");
     buttonExecute = new MyIconButton(UiConstants.ICON_EXECUTE, UiConstants.ICON_EXECUTE_ENABLE,
         UiConstants.ICON_EXECUTE, "Execute");
+    buttonSetting = new MyIconButton(UiConstants.ICON_SETTING, UiConstants.ICON_SETTING_ENABLE,
+        UiConstants.ICON_SETTING, "Setting");
     panelUp.add(buttonDownload);
     panelUp.add(buttonUpload);
     panelUp.add(buttonExecute);
+    panelUp.add(buttonSetting);
 
-    buttonSetting = new MyIconButton(UiConstants.ICON_SETTING, UiConstants.ICON_SETTING_ENABLE,
-        UiConstants.ICON_SETTING, "Setting");
+    JPanel panelDown = new JPanel();
+    panelDown.setBackground(new Color(43, 43, 43));
+    panelDown.setLayout(new BorderLayout(10, 10));
 
-    panelDown.add(buttonSetting, BorderLayout.SOUTH);
+    buttonClear = new MyIconButton(UiConstants.ICON_CLEAR, UiConstants.ICON_CLEAR_ENABLE,
+        UiConstants.ICON_CLEAR, "Clear");
+    panelDown.add(buttonClear, BorderLayout.SOUTH);
+
     this.add(panelUp);
     this.add(panelDown);
   }
@@ -102,6 +108,10 @@ public class ToolBarPanel extends JPanel {
       buttonUpload.setIcon(UiConstants.ICON_UPLOAD);
       buttonExecute.setIcon(UiConstants.ICON_EXECUTE);
       buttonSetting.setIcon(UiConstants.ICON_SETTING_ENABLE);
+    });
+
+    buttonClear.addActionListener(e -> {
+      LogMonitor.clearLogs();
     });
   }
 

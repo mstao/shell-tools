@@ -135,4 +135,14 @@ public class UiConstants {
     public final static ImageIcon ICON_EXECUTE_ENABLE = new ImageIcon(
         App.class.getResource("/icon/executeEnable.png"));
 
+    /**
+     * 清空 默认
+     */
+    public final static ImageIcon ICON_CLEAR = new ImageIcon(
+        App.class.getResource("/icon/clear.png"));
+    /**
+     * 执行 激活
+     */
+    public final static ImageIcon ICON_CLEAR_ENABLE = new ImageIcon(
+        App.class.getResource("/icon/clearEnable.png"));
 }

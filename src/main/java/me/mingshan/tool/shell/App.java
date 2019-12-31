@@ -4,7 +4,7 @@ import me.mingshan.tool.shell.config.ConfigureSupport;
 import me.mingshan.tool.shell.config.ConfigureType;
 import me.mingshan.tool.shell.config.FileConfiguration;
 import me.mingshan.tool.shell.log.LogMonitor;
-import me.mingshan.tool.shell.log.LogMonitorDialog;
+import me.mingshan.tool.shell.log.LogMonitorPanel;
 import me.mingshan.tool.shell.ui.UiConstants;
 import me.mingshan.tool.shell.ui.panel.*;
 import me.mingshan.tool.shell.util.ClassUtil;
@@ -23,6 +23,7 @@ public class App {
   private static final Logger logger = LoggerFactory.getLogger(App.class);
 
   private JFrame frame;
+  private static JPanel mainPanelCenter;
   private static List<SidePanel> sidePanels = new ArrayList<>();
 
   public static SidePanel downloadPanel;
@@ -51,12 +52,10 @@ public class App {
    * 初始化窗体
    */
   private void initialize() {
-    LogMonitorDialog monitorDialog = new LogMonitorDialog();
-    monitorDialog.setVisible(true);
-    monitorDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+    LogMonitorPanel monitorPanel = new LogMonitorPanel();
+    monitorPanel.setVisible(true);
 
     LogMonitor.addLog("AppInitStart >>>>>");
-    logger.info("AppInitStart >>>>>");
 
     // 设置系统默认样式
     try {
@@ -84,7 +83,7 @@ public class App {
     ToolBarPanel toolbar = new ToolBarPanel();
     mainPanel.add(toolbar, BorderLayout.WEST);
 
-    JPanel mainPanelCenter = new JPanel(true);
+    mainPanelCenter = new JPanel(true);
     mainPanelCenter.setLayout(new BorderLayout());
 
     downloadPanel = new DownloadPanel();
@@ -102,7 +101,15 @@ public class App {
     mainPanelCenter.add(settingPanel, BorderLayout.CENTER);
     changeSidePanelVisible(downloadPanel.order());
 
-    mainPanel.add(mainPanelCenter, BorderLayout.CENTER);
+    JPanel rightPanel = new JPanel();
+    rightPanel.setLayout(new BorderLayout());
+    rightPanel.add(mainPanelCenter, BorderLayout.CENTER);
+
+    JScrollPane scrollPane = new JScrollPane();
+    scrollPane.setViewportView(monitorPanel);
+    scrollPane.setPreferredSize(new Dimension(rightPanel.getWidth(), 100));
+    rightPanel.add(scrollPane, BorderLayout.SOUTH);
+    mainPanel.add(rightPanel, BorderLayout.CENTER);
 
     frame.add(mainPanel);
     frame.addWindowListener(new WindowListener() {
@@ -153,11 +160,13 @@ public class App {
   }
 
   public static void changeSidePanelVisible(SideOrder orderVisible) {
+    LogMonitor.addLog("切换  " + orderVisible.getValue());
+    mainPanelCenter.removeAll();
     for (SidePanel sidePanel : sidePanels) {
       if (sidePanel.order().getValue() == orderVisible.getValue()) {
-        sidePanel.setVisible(true);
-      } else {
-        sidePanel.setVisible(false);
+        mainPanelCenter.add(sidePanel, BorderLayout.CENTER);
+        mainPanelCenter.updateUI();
+        break;
       }
     }
   }
