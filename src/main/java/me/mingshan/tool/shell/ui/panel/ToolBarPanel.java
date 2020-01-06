@@ -48,7 +48,7 @@ public class ToolBarPanel extends JPanel {
   private void addButtion() {
     JPanel panelUp = new JPanel();
     panelUp.setBackground(new Color(43, 43, 43));
-    panelUp.setLayout(new FlowLayout(-2, 6, 14));
+    panelUp.setLayout(new FlowLayout(FlowLayout.CENTER, 6, 14));
 
     buttonUpload = new MyIconButton(UiConstants.ICON_UPLOAD, UiConstants.ICON_UPLOAD_ENABLE,
         UiConstants.ICON_UPLOAD, "Upload");
@@ -65,15 +65,18 @@ public class ToolBarPanel extends JPanel {
 
     JPanel panelDown = new JPanel();
     panelDown.setBackground(new Color(43, 43, 43));
-    //panelDown.setLayout(new BorderLayout(10, 10));
-
+    panelDown.setLayout(new BorderLayout());
     buttonClear = new MyIconButton(UiConstants.ICON_CLEAR, UiConstants.ICON_CLEAR_ENABLE,
         UiConstants.ICON_CLEAR, "Clear");
     buttonHide = new MyIconButton(UiConstants.ICON_HIDE, UiConstants.ICON_HIDE_ENABLE,
         UiConstants.ICON_HIDE, "Hide");
 
-    panelDown.add(buttonHide);
-    panelDown.add(buttonClear);
+    JPanel panelDownBtns = new JPanel();
+    panelDownBtns.setBackground(new Color(43, 43, 43));
+    panelDownBtns.setLayout(new GridLayout(2, 1));
+    panelDownBtns.add(buttonHide);
+    panelDownBtns.add(buttonClear);
+    panelDown.add(panelDownBtns, BorderLayout.SOUTH);
 
     this.add(panelUp);
     this.add(panelDown);
@@ -117,6 +120,11 @@ public class ToolBarPanel extends JPanel {
 
     buttonClear.addActionListener(e -> {
       LogMonitor.clearLogs();
+    });
+
+    buttonHide.addActionListener(e -> {
+      Dimension preferredSize = new Dimension(this.getWidth(), 1);
+      App.monitorScrollPanel.setPreferredSize(preferredSize);
     });
   }
 

@@ -26,6 +26,7 @@ public class App {
   private static JPanel mainPanelCenter;
   private static List<SidePanel> sidePanels = new ArrayList<>();
 
+  public static JScrollPane monitorScrollPanel;
   public static SidePanel downloadPanel;
   public static SidePanel uploadPanel;
   public static SidePanel executePanel;
@@ -105,10 +106,10 @@ public class App {
     rightPanel.setLayout(new BorderLayout());
     rightPanel.add(mainPanelCenter, BorderLayout.CENTER);
 
-    JScrollPane scrollPane = new JScrollPane();
-    scrollPane.setViewportView(monitorPanel);
-    scrollPane.setPreferredSize(new Dimension(rightPanel.getWidth(), 100));
-    rightPanel.add(scrollPane, BorderLayout.SOUTH);
+    monitorScrollPanel = new JScrollPane();
+    monitorScrollPanel.setViewportView(monitorPanel);
+    monitorScrollPanel.setPreferredSize(new Dimension(rightPanel.getWidth(), 100));
+    rightPanel.add(monitorScrollPanel, BorderLayout.SOUTH);
     mainPanel.add(rightPanel, BorderLayout.CENTER);
 
     frame.add(mainPanel);

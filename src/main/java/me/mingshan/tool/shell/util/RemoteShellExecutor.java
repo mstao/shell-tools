@@ -165,9 +165,8 @@ public class RemoteShellExecutor {
 
   public static void main(String args[]) throws Exception {
     RemoteShellExecutor executor = new RemoteShellExecutor("172.17.10.231", "iwms", "iwms");
-    // 执行myTest.sh 参数为java Know dummy
     System.out.println(executor.exec("ls"));
 
-    //executor.getFile("/usr/apps/ArmsAgent.zip", "./test.zip");
+    executor.getFile("/usr/apps/ArmsAgent.zip", "./test.zip");
   }
 }

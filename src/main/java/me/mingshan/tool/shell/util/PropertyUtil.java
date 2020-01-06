@@ -35,16 +35,16 @@ public class PropertyUtil {
   /**
    * Loads property file information.
    *
-   * @param fileName the filname
+   * @param fileName the filename
    * @return {@link Properties}
    */
-  public static Properties loadProperties(String fileName) {
+  public static Properties loadProperties(String fileName) throws IOException {
     Properties properties = new Properties();
 
     try (InputStream input = ClassUtil.getClassLoader().getResourceAsStream(fileName)) {
       properties.load(input);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw e;
     }
 
     return properties;

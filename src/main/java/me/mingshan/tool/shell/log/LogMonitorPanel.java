@@ -23,4 +23,14 @@ public class LogMonitorPanel extends JTextPane {
     this.setForeground(Color.WHITE);
     this.init();
   }
+
+  public void minimize() {
+    Dimension preferredSize = new Dimension(this.getWidth(), 1);
+    this.setPreferredSize(preferredSize);
+
+    this.setSize(preferredSize);
+  }
+
+  public void normal() {
+  }
 }
