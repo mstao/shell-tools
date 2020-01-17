@@ -62,13 +62,16 @@ public class LogMonitor implements Serializable {
    */
   public static void clearLogs() {
     logMap.clear();
-    activateLogChangedEvent(LogType.SYSTEM);
+    for (LogType value : LogType.values()) {
+      activateLogChangedEvent(value);
+    }
   }
 
   public static void clearLog(LogType logType) {
     Objects.requireNonNull(logType, "logType");
 
     logMap.put(logType.name(), new StringBuilder());
+    activateLogChangedEvent(logType);
   }
 
   private static Vector<LogChangedListener> vectorListeners = new Vector<LogChangedListener>();
