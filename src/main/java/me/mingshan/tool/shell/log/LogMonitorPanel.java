@@ -1,7 +1,5 @@
 package me.mingshan.tool.shell.log;
 
-import me.mingshan.tool.shell.App;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
