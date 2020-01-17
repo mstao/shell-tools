@@ -2,10 +2,7 @@ package me.mingshan.tool.shell.log;
 
 import me.mingshan.tool.shell.util.StringUtil;
 import me.mingshan.tool.shell.util.TimeUtil;
-import me.mingshan.tool.shell.util.cache.Cache;
-import sun.rmi.runtime.Log;
 
-import javax.swing.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +20,9 @@ public class LogMonitor implements Serializable {
    */
   public static StringBuilder getLogs(LogType logType) {
     Objects.requireNonNull(logType, "logType");
+    if (logMap.containsKey(logType.name()) == false) {
+      logMap.put(logType.name(), new StringBuilder());
+    }
     return logMap.get(logType.name());
   }
 
@@ -42,6 +42,10 @@ public class LogMonitor implements Serializable {
    */
   public static void addLog(String log, LogType logType) {
     Objects.requireNonNull(logType, "logType");
+
+    if (logMap.containsKey(logType.name()) == false) {
+      logMap.put(logType.name(), new StringBuilder());
+    }
 
     StringBuilder logs = logMap.get(logType.name());
     if (StringUtil.isEmpty(log)) {

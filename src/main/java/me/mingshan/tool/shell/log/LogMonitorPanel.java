@@ -17,7 +17,9 @@ public class LogMonitorPanel extends JPanel {
     LogMonitor.addLogChangedListener(new LogChangedListener() {
       @Override
       public void eventActivated(LogChangedEvent me) {
-        LogMonitorPanel.this.panels.get(me.getLogType().name()).setText(LogMonitor.getLogs().toString());
+        LogType logType = me.getLogType();
+        JTextPane textPane = LogMonitorPanel.this.panels.get(logType.name());
+        textPane.setText(LogMonitor.getLogs(logType).toString());
       }
     });
   }
