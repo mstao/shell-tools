@@ -5,6 +5,7 @@ import me.mingshan.tool.shell.config.ConfigureType;
 import me.mingshan.tool.shell.config.FileConfiguration;
 import me.mingshan.tool.shell.log.LogMonitor;
 import me.mingshan.tool.shell.log.LogMonitorPanel;
+import me.mingshan.tool.shell.log.LogType;
 import me.mingshan.tool.shell.ui.UiConstants;
 import me.mingshan.tool.shell.ui.panel.*;
 import me.mingshan.tool.shell.util.ClassUtil;
@@ -106,10 +107,10 @@ public class App {
     rightPanel.setLayout(new BorderLayout());
     rightPanel.add(mainPanelCenter, BorderLayout.CENTER);
 
-    monitorScrollPanel = new JScrollPane();
-    monitorScrollPanel.setViewportView(monitorPanel);
-    monitorScrollPanel.setPreferredSize(new Dimension(rightPanel.getWidth(), 100));
-    rightPanel.add(monitorScrollPanel, BorderLayout.SOUTH);
+//    monitorScrollPanel = new JScrollPane();
+//    monitorScrollPanel.setViewportView(monitorPanel);
+//    monitorScrollPanel.setPreferredSize(new Dimension(rightPanel.getWidth(), 100));
+    rightPanel.add(monitorPanel, BorderLayout.SOUTH);
     mainPanel.add(rightPanel, BorderLayout.CENTER);
 
     frame.add(mainPanel);
@@ -161,7 +162,7 @@ public class App {
   }
 
   public static void changeSidePanelVisible(SideOrder orderVisible) {
-    LogMonitor.addLog("切换  " + orderVisible.getValue());
+    LogMonitor.addLog("切换  " + orderVisible.getValue(), LogType.OPERATE);
     mainPanelCenter.removeAll();
     for (SidePanel sidePanel : sidePanels) {
       if (sidePanel.order().getValue() == orderVisible.getValue()) {

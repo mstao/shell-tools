@@ -25,13 +25,22 @@ public class LogMonitor implements Serializable {
    * @param log
    */
   public static void addLog(String log) {
+    addLog(log, LogType.SYSTEM);
+  }
+
+  /**
+   * 新增日志信息
+   *
+   * @param log
+   */
+  public static void addLog(String log, LogType logType) {
     if (StringUtil.isEmpty(log)) {
       logs.append("\r\n");
     } else {
       log = String.format("%s    %s\r\n", TimeUtil.getCurrentDateTime(), log);
       logs.append(log);
     }
-    activateLogChangedEvent();
+    activateLogChangedEvent(logType);
   }
 
   /**
@@ -39,7 +48,7 @@ public class LogMonitor implements Serializable {
    */
   public static void clearLogs() {
     logs = new StringBuilder();
-    activateLogChangedEvent();
+    activateLogChangedEvent(LogType.SYSTEM);
   }
 
   private static Vector<LogChangedListener> vectorListeners = new Vector<LogChangedListener>();
@@ -52,9 +61,10 @@ public class LogMonitor implements Serializable {
     vectorListeners.removeElement(listener);
   }
 
-  public static void activateLogChangedEvent() {
+  public static void activateLogChangedEvent(LogType logType) {
     Vector<LogChangedListener> tempVector;
     LogChangedEvent e = new LogChangedEvent(LogMonitor.class);
+    e.setLogType(logType);
     synchronized (LogMonitor.class) {
       tempVector = (Vector<LogChangedListener>) vectorListeners.clone();
       for (int i = 0; i < tempVector.size(); i++) {

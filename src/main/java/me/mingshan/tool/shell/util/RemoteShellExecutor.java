@@ -141,6 +141,7 @@ public class RemoteShellExecutor {
         File file = new File(localFile);
         SCPClient client = new SCPClient(conn);
         byte[] b = new byte[4096];
+        // try - resources - catch
         try (FileInputStream fis = new FileInputStream(file);
              SCPOutputStream os = client.put(file.getName(), file.length(), remoteTargetDirectory, mode)) {
           int i;
