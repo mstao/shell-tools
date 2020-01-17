@@ -33,9 +33,13 @@ public class LogMonitorPanel extends JPanel {
     for (int i = 0; i < LogType.values().length; i++) {
       JTextPane textPane = new JTextPane();
 
+      JScrollPane monitorScrollPanel = new JScrollPane();
+      monitorScrollPanel.setViewportView(textPane);
+      monitorScrollPanel.setPreferredSize(new Dimension(800, 100));
+
       LogType logType = LogType.values()[i];
       panels.put(logType.name(), textPane);
-      tabbedPane.addTab(logType.getCaption(), icon, textPane, logType.getCaption());
+      tabbedPane.addTab(logType.getCaption(), icon, monitorScrollPanel, logType.getCaption());
       tabbedPane.setMnemonicAt(i, KeyEvent.VK_4);
     }
 
